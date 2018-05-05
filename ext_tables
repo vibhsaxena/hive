@@ -1,0 +1,20 @@
+- not managed by Hive
+- generally used/referenced by multiple applications (such as Pig etc.)other than Hive
+- we can create partitions as we do with a managed table
+- after creating partitions, we push data into each of the partitions manually
+- we accomplish this by using the alter table command
+#alter table test12 add partition(year=2015,month=4)
+#location 'hdfs://nameservice1/data/logs/2015/04'
+- we can specify a heirarchial directory structure if we want, as is the case with managed tables, but that's completely up to us
+- we can move data from hdfs to s3 after a point in time
+
+do move data:
+-copy the data for the partition to S3:
+	hadoop distcp /data/logs/2015/04 s3n://mybucket1/2015/04
+-alter the table to point the partition to the s3 location:
+	alter table test12 partition(year=2015,month=4)
+	set location 's3n://mybucket1/2015/04'
+-remove the hdfs copy of the data
+	hadoop fs -rm -r /data/logs/2015/04
+
+
