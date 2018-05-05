@@ -1,0 +1,14 @@
+Hive draws a distinction bw how records are encoded into files and how columns are encoded into records
+	Record encoding is handled by an inputformat object (Hive uses a class called org.apache.hadoop.mapred.TextInputFormat)
+	Record encoding is handled by a serializer/deserializer or SerDe
+	There is also an output format that Hive uses for writing the output of queries to files and to the console
+
+CREATE TABLE test
+PARTITIONED BY (tester string)
+RAW FORMAT SERDE 'com.linkedin.haivvreo.AvroSerDe'
+WITH SERDEPROPERTIES ('schema.url='http://schemaprovider/test.avsc'')
+STORED AS 
+INPUTFORMAT 'com.linked.haivvreo.AvroContainerInputFormat'
+OUTPUTFORMAT 'com.linked.haivvreo.AvroContainerOutputFormat'
+
+*Alter table statement only tinkers the metadata of the table, not the data
