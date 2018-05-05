@@ -8,6 +8,9 @@ Commonly,
 	Deserializers are used at query time to execute SELECT statements
 	Serializers are used when writing data, such as through INSERT-SELECT statement.
 
+For example, let's take the case of the analysing Twitter data example. When we get the data in from Flume, it is in JSON format. We get the JSON SerDe, add the JAR in our Hive path or when we are creating the tweets table
+
+
 example of specifying custom specs:
 CREATE TABLE test
 PARTITIONED BY (tester string)
