@@ -3,6 +3,12 @@ Hive draws a distinction bw how records are encoded into files and how columns a
 	Record encoding is handled by a serializer/deserializer or SerDe
 	There is also an output format that Hive uses for writing the output of queries to files and to the console
 
+The SerDe interface allows us to instruct Hive as to how a record should be processed. The Deserializer interface takes a string or a binary representation of a record and translates it into a Java object that Hive can manipulate. The Serializer, takes a Java Object that Hive has been working on and turns it into something that Hive can write to HDFS/S3. 
+Commonly, 
+	Deserializers are used at query time to execute SELECT statements
+	Serializers are used when writing data, such as through INSERT-SELECT statement.
+
+example of specifying custom specs:
 CREATE TABLE test
 PARTITIONED BY (tester string)
 RAW FORMAT SERDE 'com.linkedin.haivvreo.AvroSerDe'
