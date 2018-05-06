@@ -1,0 +1,25 @@
+
+create table employee:
+
+create table employees(
+name    string,
+salary  float,
+subordinates    array<string>,
+deductions  map<string,float>,
+address struct<street:string,state:string,zip:int>
+)
+row format delimited
+fields terminated by '\001'
+collection items terminated by '\002'
+map keys terminated by '\003'
+lines terminated by '\n'
+stored as textfile;
+
+load data inpath '<hdfs path>'
+into table employee;
+
+- error while fetching local fs data when using 
+	load data local inpath
+that's when beeline is not running on the same node as hiveserver2
+
+
